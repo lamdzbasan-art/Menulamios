@@ -14,8 +14,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-document.getElementById("submitBtn").addEventListener("click", async () => {
-  const userKey = document.getElementById("keyInput").value.trim();
+// Đã đổi thành "btn-activate" cho khớp với file HTML của bạn
+document.getElementById("btn-activate").addEventListener("click", async () => {
+  // Đã đổi thành "key-input" cho khớp với file HTML của bạn
+  const userKey = document.getElementById("key-input").value.trim();
 
   if (!userKey) {
     alert("Bạn chưa nhập mã Key mà!");
@@ -28,8 +30,7 @@ document.getElementById("submitBtn").addEventListener("click", async () => {
     
     if (snapshot.exists() && snapshot.val() === true) {
       alert("🎉 Key chính xác! Menu VIP đã được kích hoạt.");
-      // LƯU Ý: Nếu bạn có hàm mở menu game (ví dụ: openMenu() hoặc showMenu()), hãy gõ tên hàm ở ngay dưới dòng này nhé!
-      
+      // Thêm hàm mở menu của bạn ở đây nếu có nhé!
     } else {
       alert("❌ Key sai hoặc đã bị khóa rồi Lâm ơi!");
     }
