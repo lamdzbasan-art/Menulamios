@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Panel Control</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+        .btn { background-color: #ff3333; color: white; border: none; padding: 15px 30px; font-size: 18px; margin: 10px; cursor: pointer; border-radius: 8px; width: 200px; }
+        .active { background-color: #00cc44; }
+    </style>
+</head>
+<body>
+    <h2>MENU ĐIỀU KHIỂN GAME</h2>
+    <p>Trạng thái sẽ được gửi lên Server khi bạn bấm nút</p>
+    <button id="aimbotBtn" class="btn" onclick="toggleHack('aimbot')">Ghim Tâm: TẮT</button>
+    <button id="wallBtn" class="btn" onclick="toggleHack('wallhack')">Xuyên Tường: TẮT</button>
+    <script src="script.js"></script>
+</body>
+</html>
