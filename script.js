@@ -13,11 +13,8 @@ document.getElementById("btn-activate").addEventListener("click", async () => {
   const userKey = document.getElementById("key-input").value.trim();
   if (!userKey) return alert("Bạn ơi, chưa nhập Key kìa!");
 
-  let deviceId = localStorage.getItem("my_device_id");
-  if (!deviceId) {
-    deviceId = "dev_" + Math.random().toString(36).substr(2, 9);
-    localStorage.setItem("my_device_id", deviceId);
-  }
+  let deviceId = localStorage.getItem("my_device_id") || "dev_" + Math.random().toString(36).substr(2, 9);
+  localStorage.setItem("my_device_id", deviceId);
 
   const keyRef = ref(db, `keys/${userKey}`);
   try {
