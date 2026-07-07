@@ -3,209 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Game Xịn Sò</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>MENU LÂM IOS</title>
     <style>
         :root {
-            --bg-menu: #1a1a24;
-            --bg-card: #242432;
-            --text-color: #ffffff;
-            --accent-color: #00ff88;
+            --primary: #00ffcc;
+            --bg-dark: #0f1219;
+            --card-bg: #171d26;
+            --text: #ffffff;
+            --text-dim: #a0aec0;
         }
-        body {
-            background-color: #121214;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .menu-container {
-            background: var(--bg-menu);
-            width: 100%;
-            max-width: 360px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            border: 1px solid #333;
-            overflow: hidden;
-        }
-        .menu-header {
-            background: linear-gradient(135deg, #00ff88, #00bfff);
-            padding: 15px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #000;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .menu-body {
-            padding: 15px;
-        }
-        .menu-section {
-            background: var(--bg-card);
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--accent-color);
-        }
-        .menu-section h3 {
-            margin: 0 0 10px 0;
-            font-size: 1rem;
-            color: var(--accent-color);
-        }
-        /* Style cho nút Bật/Tắt (Switch) */
-        .switch-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 46px;
-            height: 24px;
-        }
-        .switch input { display: none; }
-        .slider {
-            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #444; transition: .3s; border-radius: 24px;
-        }
-        .slider:before {
-            position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
-            background-color: white; transition: .3s; border-radius: 50%;
-        }
-        input:checked + .slider { background-color: var(--accent-color); }
-        input:checked + .slider:before { transform: translateX(22px); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text); padding: 15px; display: flex; justify-content: center; }
+        .menu-container { width: 100%; max-width: 400px; background: var(--card-bg); border: 2px solid var(--primary); border-radius: 12px; padding: 15px; box-shadow: 0 0 15px rgba(0, 255, 204, 0.2); }
+        .menu-header { text-align: center; font-size: 24px; font-weight: bold; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .section { background: rgba(255,255,255,0.03); border: 1px solid rgba(0, 255, 204, 0.1); border-radius: 8px; padding: 12px; margin-bottom: 15px; }
+        .section-title { font-size: 15px; font-weight: bold; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        
+        /* Switch Button */
+        .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 14px; }
+        .row:last-child { margin-bottom: 0; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 22px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider-switch { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .3s; border-radius: 22px; }
+        .slider-switch:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+        input:checked + .slider-switch { background-color: var(--primary); }
+        input:checked + .slider-switch:before { transform: translateX(22px); }
+        
+        /* Radio Button */
+        .radio-group { display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+        .radio-label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .radio-label input[type="radio"] { accent-color: var(--primary); width: 16px; height: 16px; }
 
-        /* Style cho nút Chọn (Radio) */
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .radio-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        /* Style cho Thanh kéo (Range Slider) */
-        .range-container {
-            margin-top: 10px;
-        }
-        .range-container .info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
-        input[type="range"] {
-            width: 100%;
-            accent-color: var(--accent-color);
-        }
-
-        /* Style cho Ô nhập liệu và Nút bấm */
-        .input-group {
-            display: flex;
-            gap: 8px;
-            margin-top: 5px;
-        }
-        input[type="text"] {
-            flex: 1;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #444;
-            background: #1a1a24;
-            color: #fff;
-        }
-        button {
-            padding: 8px 15px;
-            background: var(--accent-color);
-            border: none;
-            border-radius: 4px;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        button:hover { opacity: 0.9; }
+        /* Sliders & Selects */
+        .slider-container { margin-bottom: 10px; }
+        .slider-header { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px; }
+        .input-range { width: 100%; accent-color: var(--primary); height: 6px; border-radius: 3px; outline: none; }
+        .select-custom { background: #222b36; color: white; border: 1px solid var(--primary); padding: 4px 8px; border-radius: 4px; font-size: 13px; outline: none; }
+        
+        /* Key input */
+        .key-box { display: flex; gap: 8px; margin-top: 5px; }
+        .key-input { flex: 1; background: #222b36; border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 6px; padding: 8px; color: white; font-size: 14px; outline: none; }
+        .key-input:focus { border-color: var(--primary); }
+        .btn-submit { background: var(--primary); color: #000; border: none; padding: 0 15px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-submit:active { opacity: 0.7; }
     </style>
 </head>
 <body>
 
 <div class="menu-container">
-    <div class="menu-header">
-        <i class="fa-solid fa-gear-mesh"></i> PREMIUM MENU IOS
+    <div class="menu-header">MENU LÂM IOS</div>
+
+    <!-- AIMBOT SETTINGS -->
+    <div class="section">
+        <div class="section-title">🎯 Chức năng AimBot VIP</div>
+        <div class="radio-group" style="margin-bottom: 12px;">
+            <label class="radio-label"><input type="radio" name="aim-target" value="Head" checked> Aim Head (Đầu)</label>
+            <label class="radio-label"><input type="radio" name="aim-target" value="Neck"> Aim Neck (Cổ)</label>
+            <label class="radio-label"><input type="radio" name="aim-target" value="Chest"> Aim Chest (Ngực)</label>
+            <label class="radio-label"><input type="radio" name="aim-target" value="Body"> Aim Body (Người)</label>
+        </div>
+        
+        <!-- Thanh Aim Speed chỉnh siêu nhanh -->
+        <div class="slider-container">
+            <div class="slider-header"><span>Tốc độ khóa mục tiêu (Aim Speed)</span><span id="aimspd-val" style="color:red; font-weight:bold;">MAX (100%)</span></div>
+            <input type="range" id="aimspd-slider" class="input-range" min="10" max="100" step="5" value="100">
+        </div>
+        <div class="slider-container">
+            <div class="slider-header"><span>Phạm vi ngắm (Aim Distance)</span><span id="aimdist-val">200m</span></div>
+            <input type="range" id="aimdist-slider" class="input-range" min="50" max="500" step="10" value="200">
+        </div>
+
+        <div class="row"><span>Bỏ qua địch đã gục (Ignore Knock)</span><label class="switch"><input type="checkbox" id="ignore-knock"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Bỏ qua máy (Ignore Bot)</span><label class="switch"><input type="checkbox" id="ignore-bot"><span class="slider-switch"></span></label></div>
     </div>
-    
-    <div class="menu-body">
-        <div class="menu-section">
-            <h3><i class="fa-solid fa-crosshairs"></i> Chức năng AimBot</h3>
-            <div class="radio-group">
-                <label class="radio-label">
-                    <input type="radio" name="aim-target" value="Head" checked> Aim Head (Đầu)
-                </label>
-                <label class="radio-label">
-                    <input type="radio" name="aim-target" value="Neck"> Aim Neck (Cổ)
-                </label>
-                <label class="radio-label">
-                    <input type="radio" name="aim-target" value="Body"> Aim Body (Người)
-                </label>
-            </div>
+
+    <!-- VÒNG FOV CÀI ĐẶT -->
+    <div class="section">
+        <div class="section-title">⭕ Cài Đặt Vòng FOV</div>
+        <div class="row"><span>Hiển thị Vòng FOV (Show FOV Circle)</span><label class="switch"><input type="checkbox" id="show-fov" checked><span class="slider-switch"></span></label></div>
+        <div class="slider-container">
+            <div class="slider-header"><span>Kích thước Vòng FOV</span><span id="fov-val">100px</span></div>
+            <input type="range" id="fov-slider" class="input-range" min="30" max="300" step="5" value="100">
+        </div>
+        <div class="radio-group" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+            <label class="radio-label"><input type="radio" name="fov-mode" value="Auto" checked> Tự động tâm đi thẳng vào đầu</label>
+            <label class="radio-label"><input type="radio" name="fov-mode" value="OnFire"> Ấn nút bắn mới bắt đầu ghim đầu</label>
+        </div>
+    </div>
+
+    <!-- CHỨC NĂNG BẮN + BUFF DAME -->
+    <div class="section">
+        <div class="section-title">🔫 Chức năng Bắn & Sát Thương</div>
+        
+        <!-- Thanh kéo Buff Dame từ 1 đến 100 -->
+        <div class="slider-container" style="margin-bottom: 12px; background: rgba(0,255,204,0.05); padding: 8px; border-radius: 6px;">
+            <div class="slider-header"><span style="color: #ff3366; font-weight: bold;">Tăng sát thương (Buff Damage)</span><span id="damage-val" style="color: #ff3366; font-weight: bold;">+1 Dame</span></div>
+            <input type="range" id="damage-slider" class="input-range" min="1" max="100" step="1" value="1">
         </div>
 
-        <div class="menu-section">
-            <h3><i class="fa-solid fa-eye"></i> Chức năng Giao diện</h3>
-            <div class="switch-container">
-                <span>Hiện Khung Xương (ESP)</span>
-                <label class="switch">
-                    <input type="checkbox" id="esp-toggle">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="switch-container">
-                <span>Định Vị Antenna</span>
-                <label class="switch">
-                    <input type="checkbox" id="antenna-toggle">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="switch-container">
-                <span>Ghim Tâm Chống Giật</span>
-                <label class="switch">
-                    <input type="checkbox" id="recoil-toggle">
-                    <span class="slider"></span>
-                </label>
-            </div>
-        </div>
+        <div class="row"><span>Ghim Tâm Chống Giật (100%)</span><label class="switch"><input type="checkbox" id="recoil-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Không cần nạp đạn (Tự động)</span><label class="switch"><input type="checkbox" id="noreload-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Đổi súng nhanh</span><label class="switch"><input type="checkbox" id="fastswitch-toggle"><span class="slider-switch"></span></label></div>
+    </div>
 
-        <div class="menu-section">
-            <h3><i class="fa-solid fa-bolt"></i> Chỉnh Chỉ Số</h3>
-            <div class="range-container">
-                <div class="info">
-                    <span>Tốc độ chạy (Speed)</span>
-                    <span id="speed-val">1x</span>
-                </div>
-                <input type="range" id="speed-slider" min="1" max="5" value="1" step="0.5">
-            </div>
-            <div class="range-container">
-                <div class="info">
-                    <span>Độ cao nhảy (Jump)</span>
-                    <span id="jump-val">1x</span>
-                </div>
-                <input type="range" id="jump-slider" min="1" max="3" value="1" step="0.2">
-            </div>
-        </div>
+    <!-- ĐỊNH VỊ ESP CHUYÊN SÂU -->
+    <div class="section">
+        <div class="section-title">👁️ Định Vị ESP Chuyên Sâu</div>
+        <div class="row"><span>Hiện Khung Xương (ESP 2D/Box)</span><label class="switch"><input type="checkbox" id="esp-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Hình người que trên người địch</span><label class="switch"><input type="checkbox" id="espskeleton-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Định Vị Antenna</span><label class="switch"><input type="checkbox" id="antenna-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Hiện Tên Địch</span><label class="switch"><input type="checkbox" id="espname-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Hiện Máu Địch (Health Bar)</span><label class="switch"><input type="checkbox" id="esphealth-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Hiện Khoảng Cách (Distance)</span><label class="switch"><input type="checkbox" id="espdist-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Vẽ Đường Kẻ (Line)</span><label class="switch"><input type="checkbox" id="espline-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Radar Định Vị (Radar Line)</span><label class="switch"><input type="checkbox" id="espradar-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Cảnh Báo 360 (Alert 360)</span><label class="switch"><input type="checkbox" id="alert360-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Kiểm tra lộ diện (Check Visible)</span><label class="switch"><input type="checkbox" id="visible-toggle"><span class="slider-switch"></span></label></div>
+    </div>
 
-        <div class="menu-section">
-            <h3><i class="fa-solid fa-key"></i> Kích Hoạt Key</h3>
-            <div class="input-group">
-                <input type="text" id="key-input" placeholder="Nhập mã kích hoạt...">
-                <button id="btn-activate">Bật</button>
-            </div>
+    <!-- TÂM ẢO CUSTOM -->
+    <div class="section">
+        <div class="section-title">✖️ Cài Đặt Tâm Ảo</div>
+        <div class="row">
+            <span>Kiểu Tâm</span>
+            <select id="crosshair-style" class="select-custom">
+                <option value="Chấm tròn">Chấm Tròn</option>
+                <option value="Chữ thập">Chữ Thập</option>
+                <option value="Vòng tròn nhỏ">Vòng Tròn Nhỏ</option>
+            </select>
+        </div>
+        <div class="row">
+            <span>Màu Tâm</span>
+            <select id="crosshair-color" class="select-custom">
+                <option value="Xanh Neon">Xanh Neon</option>
+                <option value="Đỏ">Đỏ Lửa</option>
+                <option value="Vàng">Vàng Chanh</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- TÍNH NĂNG ĐẶC BIỆT -->
+    <div class="section">
+        <div class="section-title">⚡ Tính Năng Đặc Biệt</div>
+        <div class="row"><span>Dịch Chuyển (Teleport)</span><label class="switch"><input type="checkbox" id="tele-toggle"><span class="slider-switch"></span></label></div>
+        <div class="row"><span>Nhân Vật Xoay Tròn</span><label class="switch"><input type="checkbox" id="spin-toggle"><span class="slider-switch"></span></label></div>
+        <div class="slider-container">
+            <div class="slider-header"><span style="color:var(--text-dim);">Tốc độ xoay</span><span id="spin-val">1x</span></div>
+            <input type="range" id="spin-slider" class="input-range" min="1" max="10" step="1" value="1">
+        </div>
+    </div>
+
+    <!-- BỘ NHỚ HỆ THỐNG / CHỈ SỐ -->
+    <div class="section">
+        <div class="section-title">💾 Sửa Đổi Chỉ Số (Nấc 0.1)</div>
+        <div class="slider-container">
+            <div class="slider-header"><span>Tốc độ chạy (Speed)</span><span id="speed-val">1.0x</span></div>
+            <input type="range" id="speed-slider" class="input-range" min="0.0" max="5.0" step="0.1" value="1.0">
+        </div>
+        <div class="slider-container">
+            <div class="slider-header"><span>Độ cao nhảy (Jump)</span><span id="jump-val">1.0x</span></div>
+            <input type="range" id="jump-slider" class="input-range" min="0.0" max="5.0" step="0.1" value="1.0">
+        </div>
+        <div class="slider-container">
+            <div class="slider-header"><span>Tốc độ nạp đạn (Reload Speed)</span><span id="reload-val">1.0x</span></div>
+            <input type="range" id="reload-slider" class="input-range" min="1.0" max="5.0" step="0.1" value="1.0">
+        </div>
+        <div class="slider-container">
+            <div class="slider-header"><span>Camera Cao HDN (Drone View)</span><span id="drone-val">1.0x</span></div>
+            <input type="range" id="drone-slider" class="input-range" min="1.0" max="30.0" step="0.5" value="1.0">
+        </div>
+    </div>
+
+    <!-- KÍCH HOẠT KEY -->
+    <div class="section">
+        <div class="section-title">🔑 Kích Hoạt Key</div>
+        <div class="key-box">
+            <input type="text" id="key-input" class="key-input" placeholder="Nhập mã kích hoạt...">
+            <button id="btn-activate" class="btn-submit">Bật</button>
         </div>
     </div>
 </div>
