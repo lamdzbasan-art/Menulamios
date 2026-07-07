@@ -14,7 +14,7 @@ body { background-color: var(--bg-dark); color: var(--text); font-family: sans-s
 .section-title { font-size: 15px; font-weight: bold; margin-bottom: 10px; color: var(--text-dim); }
 .key-box { display: flex; gap: 10px; }
 #key-input { flex: 1; padding: 10px; border-radius: 5px; border: none; }
-#btn-activate { padding: 10px 20px; background: var(--primary); border: none; border-radius: 5px; font-weight: bold; }
+#btn-activate { padding: 10px 20px; background: var(--primary); border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -22,20 +22,16 @@ body { background-color: var(--bg-dark); color: var(--text); font-family: sans-s
 <div class="menu-container">
   <div class="menu-header">MENU LÂM IOS</div>
 
-  <!-- PHẦN MENU VIP (Sẽ bị ẩn cho đến khi nhập đúng Key) -->
+  <!-- PHẦN MENU VIP (Sẽ bị ẩn) -->
   <div id="menu-vip" style="display: none;">
     <div class="section">
       <div class="section-title">CÀI ĐẶT AIMBOT</div>
       <button>Bật Aim</button>
     </div>
-    <div class="section">
-      <div class="section-title">CÀI ĐẶT ESP</div>
-      <button>Bật ESP</button>
-    </div>
   </div>
 
-  <!-- PHẦN NHẬP KEY (Luôn hiển thị) -->
-  <div class="section">
+  <!-- PHẦN NHẬP KEY -->
+  <div class="section" id="login-section">
     <div class="section-title">Kích Hoạt Key</div>
     <div class="key-box">
       <input type="text" id="key-input" placeholder="Nhập Key...">
